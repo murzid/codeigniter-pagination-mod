@@ -1,5 +1,5 @@
-# codeigniter-pagination-mod
-Extend Library CodeIgniter Pagination that can be implemented for searching application
+# CodeIgniter Pagination Mod
+Extend CodeIgniter Pagination Library that can be implemented for searching applications
 
 ---
 
@@ -8,7 +8,7 @@ Extend Library CodeIgniter Pagination that can be implemented for searching appl
 	// Load Pagination Library
 	$this->load->library('pagination');
 
-	// Get Search Keyword (By POST or SEGMENT 4)
+	// Get Search Keyword (By POST or SEGMENT)
 	if ( $this->uri->segment(3) ) {
 		$keyword	= $this->uri->segment(3);
 	} else {
@@ -16,8 +16,8 @@ Extend Library CodeIgniter Pagination that can be implemented for searching appl
 	}
 
 	// Pagination Config
-	$config['base_url']   = $this->config->site_url() . '/your_controller/your_method/';
-	$config['per_page']   = 30;
+	$config['base_url']	= $this->config->site_url() . '/your_controller/your_method/';
+	$config['per_page']	= 30;
 	$config['query_url']	= $keyword;
 
 	// Set Select Query with "SQL_CALC_FOUND_ROWS" method
@@ -30,10 +30,12 @@ Extend Library CodeIgniter Pagination that can be implemented for searching appl
 	$query	= $this->db->get('your_db_table');
 
 	// Get Total records from query
-	$config['total_rows'] = $this->pagination->found_rows();
-
-	// Set output variable
+	$config['total_rows']	= $this->pagination->found_rows();
+	
+	// Initialize Pagination
 	$this->pagination->initialize($config); 
+	
+	// Set output variable
 	$data['query']		= $query;
 	$data['navigation']	= $this->pagination->create_links();
 
