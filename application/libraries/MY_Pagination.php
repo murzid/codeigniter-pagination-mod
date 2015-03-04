@@ -50,9 +50,27 @@ class MY_Pagination extends CI_Pagination {
 		$cur_page		= (empty($cur_page) || $cur_page < 1) ? 1 : (int) $cur_page;
 		return ($cur_page - 1) * $max_per_page;
 	}
-
+	
 	// --------------------------------------------------------------------
-
+	
+	/**
+	 * Return Total Rows from SQL_CALC_FOUND_ROWS query
+	 *
+	 * @access	public
+	 * @return	string
+	 */
+	public function found_rows()
+	{
+		$CI	=& get_instance();
+		$CI->db->select('FOUND_ROWS() AS `total_rows`', FALSE);
+		$query	= $CI->db->get();
+		$result	= $query->row();
+		
+		return $result->total_rows;
+	}
+	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Return total of pagination links
 	 *
@@ -67,7 +85,6 @@ class MY_Pagination extends CI_Pagination {
 	
 	// --------------------------------------------------------------------
 	
-	 
 	 /**
 	 * Generate the pagination links
 	 *
